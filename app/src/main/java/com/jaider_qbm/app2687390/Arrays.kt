@@ -4,7 +4,7 @@ class Arrays {
 }
 
 fun main() {
-    val pets = arrayOf("dog", "cat", "canary")
+    /*val pets = arrayOf("dog", "cat", "canary")
     println(pets.contentToString())
 
     println(pets[1])
@@ -92,6 +92,164 @@ fun main() {
     println("El indice del elemento xelene es: esta ubicada en la posicion $elemento")
 
 
+     */
 
+    //Reto 3 Automovil
+
+    data class Auto (var marca: String, var modelo: String, var año: Int)
+
+    val listaAutos = mutableListOf<Auto>()
+
+    var i: Int = 1
+
+
+    do{
+        println("1. Registrar auto")
+        println("2. Mostrar listado de autos")
+        println("3. Buscar auto")
+        println("4. Modificar auto")
+        println("5. Eliminar auto")
+        println("6. Borrar lista de autos")
+        println("7. salir del programa")
+
+        var op = readLine()!!.toInt()
+
+        when(op){
+            1->{
+                println("Ingrese la marca del auto")
+                val marca = readLine()!!.toString()
+
+                println("Ingrese el modelo del auto:")
+                val modelo = readLine()!!.toString()
+
+                println("Ingrese el año del auto:")
+                val año = readLine()!!.toInt()
+
+                if (año < 0){
+                    println("El año del auto no puede ser negativo")
+                }
+                else{
+                    val newAuto= Auto(marca, modelo, año)
+                    listaAutos.add(newAuto)
+                    println("Registro exitoso")
+                }
+            }
+
+            2->{
+                if (listaAutos.isEmpty()){
+                    println("La lista de autos esta vacia")
+                }
+                else{
+                    println("Listado de autos")
+                    listaAutos.forEachIndexed{ index, auto ->
+                        println("${index+1} Marca ${auto.marca} Modelo ${auto.modelo} Año${auto.año}")
+                    }
+                }
+            }
+
+            3->{
+                println("Ingrese la marca del auto a buscar")
+                val buscarMarca = readLine()!!.toString()
+
+                println("Ingresa el modelo del auto a buscar")
+                val buscarModelo = readLine()!!.toString()
+
+                val autoresult = listaAutos.filter { it.marca == buscarMarca && it.modelo ==buscarModelo}
+
+                if (autoresult.isNotEmpty()){
+                    println("Autos encontrados")
+                    autoresult.forEach{auto ->
+                        println("Marcar ${auto.marca} Modelo ${auto.modelo} Año ${auto.año}")
+                    }
+                }
+                else{
+                    println("No se encontraron autos con la marca ${buscarMarca} y el modelo ${buscarModelo}")
+                }
+
+            }
+
+            4->{
+                println("Ingrese la marca del auto a modificar")
+                val modifiMarca = readLine()!!.toString()
+
+                println("Ingrese el modelo del auto a modificar")
+                val modifiModelo = readLine()!!.toString()
+
+                println("Ingrese el año del auto a modificar")
+                val modifiAño = readLine()!!.toInt()
+
+                val autoresult = listaAutos.find { it.marca == modifiMarca && it.modelo == modifiModelo && it.año == modifiAño}
+
+                if (autoresult != null){
+                    println("Ingrese la nueva marca del auto ")
+                    val newMarca = readLine()!!.toString()
+
+                    println("Ingrese la nuevo modelo del auto")
+                    val newModelo = readLine()!!.toString()
+
+                    println("Ingrese el nuevo año del auto")
+                    val newAño = readLine()!!.toInt()
+
+                    if (newAño <0) {
+                        println("El año no puede ser negativo ")
+                    }
+                    else{
+                        if (listaAutos.any { it != autoresult && it.marca == newMarca && it.modelo == newModelo && it.año == newAño }){
+                            println("Ya existe otro auto con la misma marca, modelo y año ")
+                        }
+                        else{
+                            autoresult.marca == newMarca
+                            autoresult.modelo == newModelo
+                            autoresult.año == newAño
+
+                            println("Auto modificado correctamente")
+                        }
+                    }
+                }
+                else{
+                    println("No se encontro el auto para modificar")
+                }
+            }
+
+            5->{
+                println("Ingrese la marca del auto que quiere eliminar")
+                val deleteMarca = readLine()!!.toString()
+
+                println("Ingrse el modelo del auto que quiere eliminar")
+                val deleteModel = readLine()!!.toString()
+
+                println("Ingrese el año del auto que quiere eliminar")
+                val deleteAño = readLine()!!.toInt()
+
+                val autoResult = listaAutos.find { it.marca == deleteMarca && it.modelo == deleteModel && it.año == deleteAño }
+
+                if (autoResult != null){
+                    listaAutos.remove(autoResult)
+                    println("Auto eliminado exitosamente")
+                }
+                else{
+                    println("No se encontro el auto para eliminar")
+                }
+            }
+
+            6->{
+                listaAutos.clear()
+                println("Lista de autos borrada exitosamente")
+            }
+
+            7->{
+                println("Saliendo del programa")
+                println("Desea volver a digitar 1.Si 2.No")
+                i= readLine()!!.toInt()
+
+            }
+            else ->{
+                println("Opcion invalida, por favor ingresa una opcion valida del 1-7")
+            }
+
+
+        }
+    }
+    while (i==1)
 
 }
